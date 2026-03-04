@@ -7,21 +7,25 @@ import Image from 'next/image'
 import Timeline from '../components/timeline'
 
 <div style={{ marginBottom: '2rem' }}>
-  <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '0.75rem' }}>
-    <h2 style={{ margin: 0, lineHeight: 1.2 }}>Aaron E. Wu</h2>
+  <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '0.75rem' }}>
     <Image
       src="/images/profile/profile.jpeg"
       alt="Aaron Wu"
-      width={80}
-      height={80}
+      width={120}
+      height={120}
+      sizes="120px"
+      quality={100}
+      unoptimized
       priority
-      style={{ borderRadius: '9999px', border: '1px solid #e2e8f0', objectFit: 'cover', flexShrink: 0, width: '80px', height: '80px' }}
+      style={{ borderRadius: '9999px', border: '1px solid #e2e8f0', objectFit: 'cover', flexShrink: 0, width: '120px', height: '120px' }}
     />
-  </div>
-
-  <div style={{ fontSize: '1rem', lineHeight: '1.75', color: '#475569', maxWidth: '36rem' }}>
-    PhD student in Robotics at <strong>Georgia Institute of Technology</strong>, focused on deep
-    reinforcement learning, Sim2Real transfer, and state estimation for autonomous systems.
+    <div style={{ maxWidth: '42rem' }}>
+      <h1 style={{ margin: 0, lineHeight: 1.2 }}>Aaron E. Wu</h1>
+      <div style={{ marginTop: '0.35rem', fontSize: '1rem', lineHeight: '1.75', color: '#475569' }}>
+        PhD student in Robotics at <strong>Georgia Institute of Technology</strong>, focused on deep
+        reinforcement learning, Sim2Real transfer, and state estimation for autonomous systems.
+      </div>
+    </div>
   </div>
 
   <div style={{ marginTop: '0.75rem', fontSize: '0.875rem' }}>
