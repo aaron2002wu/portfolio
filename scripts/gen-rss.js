@@ -10,14 +10,27 @@ async function generate() {
     feed_url: 'https://yoursite.com/feed.xml'
   })
 
-  const posts = await fs.readdir(path.join(__dirname, '..', 'pages', 'posts'))
+  const postsDir = path.join(__dirname, '..', 'pages', 'posts')
+  let posts = []
+
+  try {
+    posts = await fs.readdir(postsDir)
+  } catch (error) {
+    if (error.code === 'ENOENT') {
+      await fs.writeFile('./public/feed.xml', feed.xml({ indent: true }))
+      return
+    }
+
+    throw error
+  }
+
   const allPosts = []
   await Promise.all(
     posts.map(async (name) => {
       if (name.startsWith('index.')) return
 
       const content = await fs.readFile(
-        path.join(__dirname, '..', 'pages', 'posts', name)
+        path.join(postsDir, name)
       )
       const frontmatter = matter(content)
 
