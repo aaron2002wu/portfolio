@@ -3,16 +3,35 @@ type: page
 title: About
 date: 2026-03-04
 ---
-
+import Image from 'next/image'
 import Timeline from '../components/timeline'
 
-# Aaron E. Wu
+<div style={{ marginBottom: '2rem' }}>
+  <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '0.75rem' }}>
+    <h2 style={{ margin: 0, lineHeight: 1.2 }}>Aaron E. Wu</h2>
+    <Image
+      src="/images/profile/profile.jpeg"
+      alt="Aaron Wu"
+      width={80}
+      height={80}
+      priority
+      style={{ borderRadius: '9999px', border: '1px solid #e2e8f0', objectFit: 'cover', flexShrink: 0, width: '80px', height: '80px' }}
+    />
+  </div>
 
-I am a PhD student in Robotics at the **Georgia Institute of Technology**, focused on deep reinforcement learning, Sim2Real transfer, and state estimation for autonomous systems.
+  <div style={{ fontSize: '1rem', lineHeight: '1.75', color: '#475569', maxWidth: '36rem' }}>
+    PhD student in Robotics at <strong>Georgia Institute of Technology</strong>, focused on deep
+    reinforcement learning, Sim2Real transfer, and state estimation for autonomous systems.
+  </div>
+
+  <div style={{ marginTop: '0.75rem', fontSize: '0.875rem' }}>
+    <a href="/resume/Aaron_Wu_Resume.pdf" target="_blank" rel="noopener noreferrer">Resume (PDF)</a>
+    {' · '}
+    <a href="/resume/Aaron_Wu_Resume.pdf" download>Download</a>
+  </div>
+</div>
 
 ## Story Timeline
-
-Most-recent-first view of my path from current robotics research back through earlier milestones. The line fills as you scroll, and each milestone links to a project page.
 
 <Timeline />
 
@@ -25,9 +44,7 @@ Most-recent-first view of my path from current robotics research back through ea
 ---
 
 <div>
-  Projects index: [View all projects](/projects)
-  <br />
-  LinkedIn: [aewu](https://www.linkedin.com/in/aewu/)
-  <br />
-  Email: aewu@gatech.edu
+  <div>Projects index: <a href="/projects">View all projects</a></div>
+  <div>LinkedIn: <a href="https://www.linkedin.com/in/aewu/">aewu</a></div>
+  <div>Email: aewu@gatech.edu</div>
 </div>

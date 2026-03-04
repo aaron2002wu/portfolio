@@ -19,47 +19,183 @@ body {
     'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif,
     'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: subpixel-antialiased;
-  font-feature-settings: 'case' 1, 'cpsp' 1, 'dlig' 1, 'cv01' 1, 'cv02',
-    'cv03' 1, 'cv04' 1;
+  font-feature-settings: 'case' 1, 'cpsp' 1, 'dlig' 1, 'cv01' 1, 'cv02', 'cv03' 1, 'cv04' 1;
   font-variation-settings: 'wght' 450;
   font-variant: common-ligatures contextual;
   letter-spacing: -0.02em;
 }
-b,
-strong,
-h3,
-h4,
-h5,
-h6 {
-  font-variation-settings: 'wght' 650;
-}
-h1 {
-  font-variation-settings: 'wght' 850;
-}
-h2 {
-  font-variation-settings: 'wght' 750;
-}
+
+b, strong, h3, h4, h5, h6 { font-variation-settings: 'wght' 650; }
+h1 { font-variation-settings: 'wght' 850; }
+h2 { font-variation-settings: 'wght' 750; }
 
 @media screen and (min-device-pixel-ratio: 1.5),
-  screen and (min-resolution: 1.5dppx) {
+       screen and (min-resolution: 1.5dppx) {
   body {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
 }
 
-details summary {
-  cursor: pointer;
+details summary { cursor: pointer; }
+img.next-image  { margin: 0; }
+.prose a        { color: #0074de; }
+
+
+/* ─── Top nav tabs (Nextra blog theme) ──────────────────────────────── */
+
+/*
+  Real DOM structure:
+    <article>
+      <h1>About</h1>
+      <div class="nx-mb-8 nx-flex ...">  ← tabs
+      ...content
+  Fix: make h1 inline so the tabs div flows beside it on the same line.
+*/
+article > h1 {
+  display: inline !important;
+  margin-right: 1rem;
 }
 
-img.next-image {
+article > div.nx-mb-8 {
+  float: right;
+  display: inline-flex !important;
+  vertical-align: middle;
+  flex-wrap: nowrap !important;
+  margin-top: 0.25rem;
+}
+
+/* Tab link + active tab */
+article > div.nx-mb-8 a,
+article > div.nx-mb-8 span.nx-cursor-default {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  padding: 0.2rem 0.1rem;
+  font-size: 0.95rem;
+  color: #111827;
+  text-decoration: none !important;
+  transition: color 160ms ease;
+  white-space: nowrap;
+}
+article > div.nx-mb-8 a:hover {
+  color: #6b7280;
+}
+article > div.nx-mb-8 span.nx-cursor-default::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -0.3rem;
+  height: 2px;
+  border-radius: 999px;
+  background: #2563eb;
+}
+
+html.dark article > div.nx-mb-8 a,
+html.dark article > div.nx-mb-8 span.nx-cursor-default {
+  color: #e5e7eb;
+}
+html.dark article > div.nx-mb-8 a:hover {
+  color: #9ca3af;
+}
+
+
+/* ─── Timeline ───────────────────────────────────────────────────────── */
+
+.timeline-root {
+  margin: 2rem 0 2.5rem;
+}
+
+.timeline-root ol {
+  list-style: none;
   margin: 0;
+  padding: 0;
+
+  /* The continuous vertical line lives on the ol itself */
+  border-left: 1.5px solid #e2e8f0;
+  padding-left: 0;
+  margin-left: 0.45rem; /* centers the line under the dots */
 }
 
-.prose a {
-  color: #0074de;
+html.dark .timeline-root ol {
+  border-color: #334155;
 }
 
-.nav-line .nav-link {
-  color: #69778c;
+.timeline-item {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  gap: 1.1rem;
+  padding: 0 0 1.75rem 1.5rem;
+}
+
+.timeline-item:last-child {
+  padding-bottom: 0;
+}
+
+/* Dot — sits on top of the border-left line */
+.timeline-dot {
+  position: absolute;
+  left: -0.45rem;       /* half of dot width to center on the line */
+  top: 0.35rem;
+  width: 0.875rem;
+  height: 0.875rem;
+  border-radius: 9999px;
+  background: #fff;
+  border: 2px solid #cbd5e1;
+  transition: border-color 180ms ease, background 180ms ease;
+  flex-shrink: 0;
+}
+
+html.dark .timeline-dot {
+  background: #0f172a;
+  border-color: #475569;
+}
+
+.timeline-item:hover .timeline-dot {
+  border-color: #3b82f6;
+  background: #3b82f6;
+}
+
+.timeline-content {
+  padding-top: 0;
+  min-width: 0;
+}
+
+.timeline-period {
+  display: block;
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #94a3b8;
+  margin-bottom: 0.2rem;
+}
+
+html.dark .timeline-period {
+  color: #64748b;
+}
+
+.timeline-title {
+  margin: 0;
+  font-size: 0.9rem;
+  font-variation-settings: 'wght' 620;
+  color: #1e293b;
+  line-height: 1.35;
+}
+
+html.dark .timeline-title {
+  color: #f1f5f9;
+}
+
+.timeline-description {
+  margin: 0.3rem 0 0;
+  font-size: 0.82rem;
+  line-height: 1.6;
+  color: #64748b;
+}
+
+html.dark .timeline-description {
+  color: #94a3b8;
 }

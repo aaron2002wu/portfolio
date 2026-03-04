@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useMemo, useState } from 'react'
+import React, { useMemo, useState, useEffect } from 'react'
 
 function BaseIcon({
   className,
@@ -163,6 +163,7 @@ const nodePositions: Record<string, { x: number; y: number }> = {
 
 export default function ContainerGraph() {
   const [selectedId, setSelectedId] = useState<string | null>(null)
+  const [hoveredId, setHoveredId] = useState<string | null>(null)
 
   const selectedContainer = useMemo(
     () => containerData.containers.find((c) => c.id === selectedId),
@@ -188,48 +189,75 @@ export default function ContainerGraph() {
   }
 
   return (
-    <div className="rounded-xl border border-gray-200 bg-white p-6 shadow-sm dark:border-gray-800 dark:bg-gray-950">
+    <div className="rounded-xl border border-gradient-to-r from-pink-200 via-purple-200 to-blue-200 bg-white/80 p-6 shadow-lg backdrop-blur-sm dark:border-purple-900/40 dark:bg-gradient-to-br dark:from-purple-950/30 dark:via-blue-950/30 dark:to-pink-950/30">
       <div className="flex flex-col gap-8 md:flex-row">
-        <div className="relative flex-1 rounded-lg border border-gray-100 bg-gray-50 p-6 dark:border-gray-900 dark:bg-black/30">
-          <header className="mb-8 flex items-center gap-3 border-b border-gray-200 pb-3 dark:border-gray-800">
-            <DockerIcon className="h-8 w-8 text-blue-500" />
+        <div className="relative flex-1 rounded-xl border border-gradient-to-r from-indigo-200 to-pink-200 bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50 p-6 shadow-sm dark:border-purple-500/20 dark:bg-gradient-to-br dark:from-blue-950/20 dark:via-purple-950/20 dark:to-pink-950/20">
+          <header className="mb-8 flex items-center gap-3 border-b border-purple-200 pb-3 dark:border-purple-500/20">
+            <div className="animate-bounce">
+              <DockerIcon className="h-8 w-8 bg-gradient-to-br from-blue-500 to-cyan-400 bg-clip-text text-transparent" />
+            </div>
             <div>
-              <h3 className="text-xl font-semibold">ROS 2 Distributed System</h3>
-              <p className="flex items-center gap-1.5 text-sm text-gray-500">
+              <h3 className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-xl font-bold text-transparent dark:from-blue-400 dark:to-purple-400">
+                ROS 2 Distributed System
+              </h3>
+              <p className="flex items-center gap-1.5 text-sm text-gray-600 dark:text-gray-300">
                 <ChipIcon className="h-4 w-4" /> Host: {containerData.host}
               </p>
             </div>
           </header>
 
-          <div className="relative min-h-[360px]">
+          <div className="relative min-h-[400px]">
             <svg className="pointer-events-none absolute inset-0 h-full w-full" aria-hidden="true">
               {containerData.connections.map((conn) => {
                 const fromPos = nodePositions[conn.from]
                 const toPos = nodePositions[conn.to]
                 const active = isConnectionActive(conn.from, conn.to)
-                const related = !selectedId || active
+                const hovered = hoveredId && (hoveredId === conn.from || hoveredId === conn.to)
 
                 return (
                   <g key={`${conn.from}-${conn.to}-${conn.topic}`}>
+                    {/* Glow effect for active connections */}
+                    {(active || hovered) && (
+                      <line
+                        x1={`${fromPos.x}%`}
+                        y1={`${fromPos.y}%`}
+                        x2={`${toPos.x}%`}
+                        y2={`${toPos.y}%`}
+                        stroke={active ? '#ec4899' : '#a78bfa'}
+                        strokeWidth={8}
+                        opacity="0.3"
+                        style={{ filter: 'blur(3px)' }}
+                      />
+                    )}
+                    {/* Main connection line */}
                     <line
                       x1={`${fromPos.x}%`}
                       y1={`${fromPos.y}%`}
                       x2={`${toPos.x}%`}
                       y2={`${toPos.y}%`}
-                      stroke={active ? '#3b82f6' : '#9ca3af'}
-                      strokeWidth={active ? 3 : 2}
-                      strokeDasharray={conn.dynamic ? '6 5' : '0'}
-                      style={active && conn.dynamic ? { animation: 'dash 1.2s linear infinite' } : undefined}
-                      opacity={related ? 1 : 0.25}
+                      stroke={active ? '#ec4899' : hovered ? '#a78bfa' : '#cbd5e1'}
+                      strokeWidth={active || hovered ? 3 : 2}
+                      strokeDasharray={conn.dynamic ? '8 6' : '0'}
+                      style={
+                        (active || hovered) && conn.dynamic
+                          ? { animation: 'dash 1.5s linear infinite' }
+                          : undefined
+                      }
+                      opacity={selectedId === null || active || hovered ? 1 : 0.15}
+                      className="transition-all duration-300"
                     />
-                    <text
-                      x={`${(fromPos.x + toPos.x) / 2}%`}
-                      y={`${(fromPos.y + toPos.y) / 2 - 2}%`}
-                      textAnchor="middle"
-                      className="fill-gray-500 text-[10px]"
-                    >
-                      {conn.topic}
-                    </text>
+                    {/* Topic label */}
+                    {(active || hovered || !selectedId) && (
+                      <text
+                        x={`${(fromPos.x + toPos.x) / 2}%`}
+                        y={`${(fromPos.y + toPos.y) / 2 - 3}%`}
+                        textAnchor="middle"
+                        className="fill-purple-600 text-[11px] font-semibold dark:fill-purple-300"
+                        style={{ opacity: active ? 1 : 0.6 }}
+                      >
+                        {conn.topic}
+                      </text>
+                    )}
                   </g>
                 )
               })}
@@ -238,77 +266,109 @@ export default function ContainerGraph() {
             <div className="grid grid-cols-2 gap-x-10 gap-y-16">
               {containerData.containers.map((container) => {
                 const isActive = selectedId === container.id
-                const related = isRelated(container.id)
+                const isHovered = hoveredId === container.id
+                const related = !selectedId || isActive
                 const ContainerIcon = container.icon
+                const colorMap: Record<string, { gradient: string; light: string; dark: string }> = {
+                  'border-emerald-500': { gradient: 'from-emerald-400 to-teal-500', light: 'bg-emerald-50', dark: 'dark:bg-emerald-950/20' },
+                  'border-sky-500': { gradient: 'from-sky-400 to-blue-500', light: 'bg-sky-50', dark: 'dark:bg-sky-950/20' },
+                  'border-amber-500': { gradient: 'from-amber-400 to-orange-500', light: 'bg-amber-50', dark: 'dark:bg-amber-950/20' },
+                  'border-rose-500': { gradient: 'from-rose-400 to-pink-500', light: 'bg-rose-50', dark: 'dark:bg-rose-950/20' }
+                }
+                const colors = colorMap[container.color] || colorMap['border-sky-500']
 
                 return (
                   <button
                     key={container.id}
                     onClick={() => setSelectedId(isActive ? null : container.id)}
+                    onMouseEnter={() => setHoveredId(container.id)}
+                    onMouseLeave={() => setHoveredId(null)}
                     className={`
-                      relative z-10 flex flex-col items-center gap-3 rounded-xl border-2 p-4 transition-all duration-300 ease-in-out
+                      group relative z-10 flex flex-col items-center gap-3 rounded-2xl border-2 p-5 transition-all duration-300 ease-out cursor-pointer
                       ${container.color}
-                      ${isActive ? 'scale-105 bg-white shadow-xl dark:bg-gray-900' : 'bg-gray-100 dark:bg-gray-800'}
-                      ${!related ? 'opacity-20' : 'opacity-100'}
-                      hover:scale-105 hover:border-blue-500 hover:shadow-lg
+                      ${isActive ? `scale-110 shadow-2xl ring-2 ring-purple-400 ${colors.light} ${colors.dark}` : isHovered ? 'scale-105 shadow-lg ring-1 ring-purple-300' : `shadow-md ${colors.light} ${colors.dark}`}
+                      ${!related ? 'opacity-30 blur-sm' : 'opacity-100'}
                     `}
                   >
-                    <ContainerIcon className={`h-10 w-10 ${isActive ? 'text-blue-600' : 'text-gray-600'}`} />
-                    <span className="text-center text-sm font-medium md:text-base">{container.name}</span>
-                    {isActive ? (
-                      <span className="absolute -right-3 -top-3 flex h-6 w-6">
-                        <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-blue-400 opacity-75" />
-                        <span className="relative inline-flex h-6 w-6 items-center justify-center rounded-full bg-blue-500 text-[10px] text-white">
-                          On
-                        </span>
+                    {/* Background glow for active/hovered */}
+                    {(isActive || isHovered) && (
+                      <div className={`absolute inset-0 rounded-2xl bg-gradient-to-br ${colors.gradient} opacity-10 blur-lg transition-opacity duration-300`} />
+                    )}
+                    
+                    <div className="relative z-10 flex flex-col items-center gap-3">
+                      <div className={`relative transition-all duration-300 ${isActive ? 'scale-125' : isHovered ? 'scale-110' : ''}`}>
+                        <ContainerIcon className={`h-10 w-10 transition-all ${isActive ? `bg-gradient-to-r ${colors.gradient} bg-clip-text text-transparent` : isHovered ? 'text-purple-500' : 'text-gray-700 dark:text-gray-300'}`} />
+                        {isActive && (
+                          <div className="absolute inset-0 animate-pulse rounded-full bg-gradient-to-r from-purple-400 to-pink-400 blur opacity-30" />
+                        )}
+                      </div>
+                      <span className="text-center text-sm font-semibold md:text-base transition-colors duration-300 bg-gradient-to-r from-gray-900 to-gray-700 dark:from-white dark:to-gray-200 bg-clip-text group-hover:text-transparent dark:group-hover:text-transparent animate-text">
+                        {container.name}
                       </span>
-                    ) : null}
+                    </div>
+
+                    {/* Active indicator */}
+                    {isActive && (
+                      <div className="absolute -right-4 -top-4">
+                        <div className="relative flex h-8 w-8 items-center justify-center">
+                          <div className="absolute inline-flex h-full w-full animate-ping rounded-full bg-pink-400 opacity-75" />
+                          <div className="relative inline-flex h-8 w-8 items-center justify-center rounded-full bg-gradient-to-r from-pink-500 to-purple-500 text-[10px] font-bold text-white shadow-lg">
+                            ✓
+                          </div>
+                        </div>
+                      </div>
+                    )}
                   </button>
                 )
               })}
             </div>
           </div>
 
-          <p className="mt-8 text-center text-xs text-gray-400">
-            Click a container to highlight communication paths and inspect deployment details.
+          <p className="mt-10 text-center text-xs font-medium text-gray-500 dark:text-gray-400">
+            ✨ Click a container to explore connections • Hover to preview ✨
           </p>
         </div>
 
-        <div className="w-full flex-shrink-0 border-gray-100 pt-6 md:w-80 md:border-l md:pl-6 md:pt-0 dark:border-gray-900">
+        <div className="w-full flex-shrink-0 border-purple-200 pt-6 md:w-80 md:border-l md:pl-6 md:pt-0 dark:border-purple-500/20">
           {selectedContainer ? (
             <aside className="space-y-5">
-              <h4 className="flex items-center gap-2 text-2xl font-bold">
-                <DockerIcon className="h-7 w-7 text-blue-500" />
-                {selectedContainer.id}.service
-              </h4>
-              <p className="text-sm leading-relaxed text-gray-600 dark:text-gray-400">
+              <div className="flex items-center gap-3">
+                <div className="p-3 rounded-xl bg-gradient-to-br from-purple-500 to-pink-500">
+                  <DockerIcon className="h-6 w-6 text-white" />
+                </div>
+                <h4 className="flex flex-col">
+                  <span className="text-xl font-bold text-gray-900 dark:text-white">{selectedContainer.id}</span>
+                  <span className="text-xs text-gray-500 dark:text-gray-400">.service</span>
+                </h4>
+              </div>
+              <p className="text-sm leading-relaxed text-gray-700 dark:text-gray-300">
                 {selectedContainer.description}
               </p>
 
               <div className="grid grid-cols-3 gap-2 text-xs">
-                <div className="rounded-md bg-gray-100 p-2 text-center dark:bg-gray-900">
-                  <p className="text-gray-500">Status</p>
-                  <p className="font-semibold text-green-600">{selectedContainer.status}</p>
+                <div className="rounded-xl bg-gradient-to-br from-green-100 to-emerald-100 p-3 text-center dark:from-green-900/30 dark:to-emerald-900/30">
+                  <p className="text-gray-600 dark:text-gray-400">Status</p>
+                  <p className="font-bold text-green-600 dark:text-green-400">{selectedContainer.status}</p>
                 </div>
-                <div className="rounded-md bg-gray-100 p-2 text-center dark:bg-gray-900">
-                  <p className="text-gray-500">Ports</p>
-                  <p className="font-semibold text-gray-700 dark:text-gray-200">{selectedContainer.ports}</p>
+                <div className="rounded-xl bg-gradient-to-br from-blue-100 to-cyan-100 p-3 text-center dark:from-blue-900/30 dark:to-cyan-900/30">
+                  <p className="text-gray-600 dark:text-gray-400">Ports</p>
+                  <p className="font-bold text-blue-600 dark:text-blue-400 text-[10px]">{selectedContainer.ports}</p>
                 </div>
-                <div className="rounded-md bg-gray-100 p-2 text-center dark:bg-gray-900">
-                  <p className="text-gray-500">RAM</p>
-                  <p className="font-semibold text-gray-700 dark:text-gray-200">{selectedContainer.ram}</p>
+                <div className="rounded-xl bg-gradient-to-br from-purple-100 to-pink-100 p-3 text-center dark:from-purple-900/30 dark:to-pink-900/30">
+                  <p className="text-gray-600 dark:text-gray-400">RAM</p>
+                  <p className="font-bold text-purple-600 dark:text-purple-400">{selectedContainer.ram}</p>
                 </div>
               </div>
 
-              <div className="space-y-2">
-                <h5 className="text-sm font-semibold uppercase tracking-wider text-gray-500">
+              <div className="space-y-2 pt-2">
+                <h5 className="text-sm font-bold uppercase tracking-wider bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent dark:from-purple-400 dark:to-pink-400">
                   Container Tech Stack
                 </h5>
                 <div className="flex flex-wrap gap-2">
                   {selectedContainer.tech.map((tech) => (
                     <span
                       key={tech}
-                      className="rounded bg-blue-100 px-2 py-0.5 text-xs font-medium text-blue-700 dark:bg-blue-900/40 dark:text-blue-300"
+                      className="rounded-full bg-gradient-to-r from-purple-200 to-pink-200 px-3 py-1 text-xs font-semibold text-purple-800 dark:from-purple-900/40 dark:to-pink-900/40 dark:text-purple-200"
                     >
                       {tech}
                     </span>
@@ -316,21 +376,23 @@ export default function ContainerGraph() {
                 </div>
               </div>
 
-              <div className="space-y-2">
-                <h5 className="text-sm font-semibold uppercase tracking-wider text-gray-500">
-                  docker-compose.yml snippet
+              <div className="space-y-2 pt-2">
+                <h5 className="text-sm font-bold uppercase tracking-wider bg-gradient-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent dark:from-blue-400 dark:to-cyan-400">
+                  docker-compose snippet
                 </h5>
-                <pre className="overflow-x-auto rounded-lg bg-gray-900 p-4 font-mono text-xs leading-snug text-gray-200">
+                <pre className="overflow-x-auto rounded-xl bg-gradient-to-br from-gray-900 to-gray-950 p-4 font-mono text-xs leading-snug text-gray-100 border border-gray-800 shadow-lg dark:border-gray-700">
                   {selectedContainer.code}
                 </pre>
               </div>
             </aside>
           ) : (
-            <div className="flex h-full flex-col items-center justify-center rounded-xl border-2 border-dashed border-gray-200 p-8 text-center text-gray-400 dark:border-gray-800">
-              <DockerIcon className="mb-4 h-16 w-16" />
-              <p className="font-medium">System Architecture Overview</p>
-              <p className="text-sm">
-                Select a container to inspect ROS 2 communication flow and container deployment configuration.
+            <div className="flex h-full flex-col items-center justify-center rounded-2xl border-2 border-dashed border-purple-300 p-8 text-center text-gray-500 dark:border-purple-500/30">
+              <div className="mb-4 p-4 rounded-full bg-gradient-to-br from-purple-100 to-pink-100 dark:from-purple-900/20 dark:to-pink-900/20">
+                <DockerIcon className="h-12 w-12 text-purple-600 dark:text-purple-400" />
+              </div>
+              <p className="font-bold text-gray-900 dark:text-white">System Architecture</p>
+              <p className="text-sm text-gray-600 dark:text-gray-400">
+                Click a container to explore ROS 2 flows & deployment configs
               </p>
             </div>
           )}
@@ -340,8 +402,19 @@ export default function ContainerGraph() {
       <style jsx>{`
         @keyframes dash {
           to {
-            stroke-dashoffset: -22;
+            stroke-dashoffset: -28;
           }
+        }
+        @keyframes text {
+          0%, 100% {
+            opacity: 1;
+          }
+          50% {
+            opacity: 0.8;
+          }
+        }
+        .animate-text {
+          animation: text 3s ease-in-out infinite;
         }
       `}</style>
     </div>
