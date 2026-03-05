@@ -107,45 +107,50 @@ html.dark article > div.nx-mb-8 a:hover {
   margin: 2rem 0 2.5rem;
 }
 
-.timeline-root ol {
+.timeline-list {
+  position: relative;
   list-style: none;
   margin: 0;
-  padding: 0;
-
-  /* The continuous vertical line lives on the ol itself */
-  border-left: 1.5px solid #e2e8f0;
-  padding-left: 0;
-  margin-left: 0.45rem; /* centers the line under the dots */
+  padding: 0 0 0 3rem;
 }
 
-html.dark .timeline-root ol {
-  border-color: #334155;
+.timeline-list-wrap {
+  position: relative;
+}
+
+.timeline-list::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 2.4rem;
+  width: 1.5px;
+  background: #dbe3ef;
+}
+
+html.dark .timeline-list::before {
+  background: #334155;
 }
 
 .timeline-item {
   position: relative;
-  display: flex;
-  align-items: flex-start;
-  gap: 1.1rem;
-  padding: 0 0 1.75rem 1.5rem;
+  padding: 0 0 1.6rem;
 }
 
 .timeline-item:last-child {
   padding-bottom: 0;
 }
 
-/* Dot — sits on top of the border-left line */
 .timeline-dot {
   position: absolute;
-  left: -0.45rem;       /* half of dot width to center on the line */
-  top: 0.35rem;
-  width: 0.875rem;
-  height: 0.875rem;
+  left: -0.96rem;
+  top: 0.28rem;
+  width: 0.72rem;
+  height: 0.72rem;
   border-radius: 9999px;
   background: #fff;
-  border: 2px solid #cbd5e1;
+  border: 2px solid #aab7cb;
   transition: border-color 180ms ease, background 180ms ease;
-  flex-shrink: 0;
 }
 
 html.dark .timeline-dot {
@@ -177,25 +182,237 @@ html.dark .timeline-period {
   color: #64748b;
 }
 
+.timeline-period-row {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  flex-wrap: wrap;
+  margin-bottom: 0.2rem;
+}
+
+.timeline-tag {
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid #dbeafe;
+  border-radius: 999px;
+  padding: 0.08rem 0.45rem;
+  font-size: 0.63rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  line-height: 1.2;
+  color: #1d4ed8;
+  background: #eff6ff;
+}
+
+html.dark .timeline-tag {
+  color: #bfdbfe;
+  border-color: rgba(59, 130, 246, 0.45);
+  background: rgba(30, 58, 138, 0.35);
+}
+
 .timeline-title {
   margin: 0;
-  font-size: 0.9rem;
-  font-variation-settings: 'wght' 620;
+  font-size: 0.95rem;
+  font-variation-settings: 'wght' 640;
   color: #1e293b;
-  line-height: 1.35;
+  line-height: 1.3;
 }
 
 html.dark .timeline-title {
   color: #f1f5f9;
 }
 
+.timeline-title-link {
+  display: inline-block;
+  text-decoration: none;
+}
+
+.timeline-title-link:hover {
+  color: #2563eb;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+html.dark .timeline-title-link:hover {
+  color: #93c5fd;
+}
+
 .timeline-description {
-  margin: 0.3rem 0 0;
-  font-size: 0.82rem;
-  line-height: 1.6;
+  margin: 0.24rem 0 0;
+  font-size: 0.84rem;
+  line-height: 1.55;
   color: #64748b;
 }
 
 html.dark .timeline-description {
   color: #94a3b8;
+}
+/* ─── Projects Index ─────────────────────────────────────────────────── */
+
+.projects-root {
+  margin: 1.5rem 0 2.5rem;
+}
+
+.projects-howto {
+  border: 1px solid #dbe3ef;
+  border-radius: 0.5rem;
+  background: #f8fafc;
+  margin-bottom: 1.5rem;
+  overflow: hidden;
+}
+
+html.dark .projects-howto {
+  border-color: #334155;
+  background: rgba(15, 23, 42, 0.4);
+}
+
+.projects-howto summary {
+  padding: 0.45rem 0.75rem;
+  font-size: 0.78rem;
+  font-variation-settings: 'wght' 650;
+  letter-spacing: 0.04em;
+  color: #64748b;
+}
+
+html.dark .projects-howto summary {
+  color: #94a3b8;
+}
+
+.projects-howto-body {
+  border-top: 1px solid #dbe3ef;
+  padding: 0.6rem 0.75rem 0.75rem;
+}
+
+html.dark .projects-howto-body {
+  border-color: #334155;
+}
+
+.projects-howto-body p {
+  margin: 0 0 0.5rem;
+  font-size: 0.78rem;
+  color: #64748b;
+  line-height: 1.5;
+}
+
+html.dark .projects-howto-body p {
+  color: #94a3b8;
+}
+
+.projects-howto-body pre {
+  margin: 0;
+  overflow-x: auto;
+  border-radius: 0.375rem;
+  background: #0f172a;
+  padding: 0.6rem 0.75rem;
+  font-size: 0.72rem;
+  line-height: 1.6;
+  color: #e2e8f0;
+}
+
+.projects-group {
+  margin-bottom: 1.25rem;
+}
+
+.projects-group:last-child {
+  margin-bottom: 0;
+}
+
+.projects-group-label {
+  font-size: 0.68rem;
+  font-variation-settings: 'wght' 650;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #94a3b8;
+  margin: 0 0 0.4rem;
+}
+
+html.dark .projects-group-label {
+  color: #64748b;
+}
+
+.projects-list {
+  border: 1px solid #dbe3ef;
+  border-radius: 0.5rem;
+  overflow: hidden;
+}
+
+html.dark .projects-list {
+  border-color: #334155;
+}
+
+.projects-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.55rem 0.75rem;
+  border-bottom: 1px solid #f1f5f9;
+  transition: background 120ms ease;
+}
+
+html.dark .projects-item {
+  border-bottom-color: #1e293b;
+}
+
+.projects-item:last-child {
+  border-bottom: none;
+}
+
+.projects-item:hover {
+  background: #f8fafc;
+}
+
+html.dark .projects-item:hover {
+  background: rgba(30, 41, 59, 0.4);
+}
+
+.projects-item-body {
+  min-width: 0;
+}
+
+.projects-item-title {
+  margin: 0;
+  font-size: 0.88rem;
+  font-variation-settings: 'wght' 640;
+  color: #1e293b;
+  line-height: 1.3;
+}
+
+html.dark .projects-item-title {
+  color: #f1f5f9;
+}
+
+.projects-item-summary {
+  margin: 0.15rem 0 0;
+  font-size: 0.78rem;
+  line-height: 1.45;
+  color: #64748b;
+}
+
+html.dark .projects-item-summary {
+  color: #94a3b8;
+}
+
+.projects-item-link {
+  flex-shrink: 0;
+  font-size: 0.75rem;
+  font-variation-settings: 'wght' 550;
+  color: #2563eb;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: color 140ms ease;
+}
+
+.projects-item-link:hover {
+  color: #1d4ed8;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+html.dark .projects-item-link {
+  color: #93c5fd;
+}
+
+html.dark .projects-item-link:hover {
+  color: #bfdbfe;
 }

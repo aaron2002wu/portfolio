@@ -1,14 +1,17 @@
 export type TimelineMilestone = {
+  id: string
   period: string
   title: string
-  organization: string
   summary: string
+  tag?: string
+  organization?: string
   projectPath?: string
 }
 
 export type ProjectEntry = {
   slug: string
   title: string
+  category: ProjectCategory
   timeframe: string
   experience: string
   tags: string[]
@@ -17,70 +20,87 @@ export type ProjectEntry = {
   summary: string
 }
 
+export type ProjectCategory =
+  | 'Undergraduate Research'
+  | 'Marine Robotics Group'
+  | 'ASDL'
+  | 'Other'
+
 export const timelineMilestones: TimelineMilestone[] = [
   {
-    period: '2017 - 2021',
-    title: 'High School Foundation (Placeholder)',
-    organization: '[Add school name]',
+    id: 'mrg-join',
+    period: 'Fall 2021',
+    title: 'Joined Marine Robotics Group',
     summary:
-      'Built early engineering and coding fundamentals that led into robotics and systems design at Georgia Tech.',
-    projectPath: '/projects/high-school-foundation'
+      'Joined MRG in freshman year and started building the marine systems context that shaped later research choices.',
+    tag: 'Marine Robotics Group',
+    projectPath: '/projects/stinger-tug-education-platform',
   },
   {
+    id: 'mmwave-radiation-measurement',
     period: 'Fall 2022 - Spring 2023',
     title: 'mmWave Lab Infrastructure',
-    organization: 'mmWave Antennas & Arrays Lab',
     summary:
       'Designed durable hardware infrastructure for robotic radiation-pattern measurement workflows.',
-    projectPath: '/projects/mmwave-radiation-measurement'
+    tag: 'Undergraduate Research',
+    projectPath: '/projects/mmwave-radiation-measurement',
   },
   {
-    period: 'Spring 2023 - Fall 2023',
-    title: 'Underwater RF Modulation Research',
-    organization: 'Propagation Group',
-    summary:
-      'Modeled underwater antenna transfer functions and proposed a more power-efficient communication scheme.',
-    projectPath: '/projects/underwater-rf-modulation'
-  },
-  {
+    id: 'scripps-sonar-navigation',
     period: 'Summer 2023',
     title: 'ASV Sonar Navigation',
-    organization: 'Scripps MPL REU',
     summary:
       'Integrated side-scan sonar navigation and produced field datasets for localization validation.',
-    projectPath: '/projects/scripps-sonar-navigation'
+    tag: 'Undergraduate Research',
+    projectPath: '/projects/scripps-sonar-navigation',
   },
   {
+    id: 'underwater-rf-modulation',
+    period: 'Spring 2023 - Fall 2023',
+    title: 'Underwater RF Modulation Research',
+    summary:
+      'Modeled underwater antenna transfer functions and proposed a more power-efficient communication scheme.',
+    tag: 'Undergraduate Research',
+    projectPath: '/projects/underwater-rf-modulation',
+  },
+  {
+    id: 'mrg-president',
+    period: 'Fall 2023 - Present',
+    title: 'Became President, Marine Robotics Group',
+    summary:
+      'Stepped into MRG leadership in 2023 and scaled project onboarding, systems integration, and field-test execution.',
+    tag: 'Marine Robotics Group',
+    projectPath: '/projects/ae-x355-marine-robotics-course',
+  },
+  {
+    id: 'spacex-array-calibration',
     period: 'Spring 2024 - Fall 2024',
     title: 'Phased-Array Calibration Automation',
-    organization: 'SpaceX',
     summary:
       'Built automation that reduced calibration runtime from hours to seconds for production-scale workflows.',
-    projectPath: '/projects/spacex-array-calibration'
+    projectPath: '/projects/spacex-array-calibration',
   },
   {
-    period: 'Fall 2024 - Present',
-    title: 'UCRT Simulator & Residual Modeling',
-    organization: 'ASDL, Georgia Tech',
+    id: 'bs-graduation',
+    period: 'May 2024',
+    title: 'Graduated B.S. in Electrical Engineering',
     summary:
-      'Generated large-scale Gazebo trajectories for residual marine dynamics model development.',
-    projectPath: '/projects/ucrt-sim-stack'
+      'Completed the B.S. at Georgia Tech and transitioned into full-time graduate robotics research.',
   },
   {
+    id: 'phd-transition',
     period: 'Fall 2024 - Present',
-    title: 'Distributed ROS 2 + Docker Deployment',
-    organization: 'ASDL, Georgia Tech',
+    title: 'Started PhD in Robotics',
     summary:
-      'Built containerized ROS 2 sensor fusion/navigation pipelines across air, ground, and marine systems.',
-    projectPath: '/projects/ucrt-ros2-deployment'
+      'Transitioned from undergraduate research and industry execution into graduate systems research.',
   },
   {
+    id: 'ucrt-ros2-deployment',
     period: 'Fall 2024 - Present',
-    title: 'Marine Robotics Group Leadership',
-    organization: 'Georgia Tech MRG',
+    title: 'UCRT Marine Autonomy Stack (Sim + ROS 2 + HITL)',
     summary:
-      'Scaled onboarding and field-test execution through course design, mentoring, and Stinger Tug integration.',
-    projectPath: '/projects/stinger-tug-education-platform'
+      'Built containerized navigation, sensor-fusion, and HITL validation workflows for multi-domain marine testbed development.',
+    projectPath: '/projects/ucrt-ros2-deployment',
   }
 ]
 
@@ -88,6 +108,7 @@ export const projectEntries: ProjectEntry[] = [
   {
     slug: 'high-school-foundation',
     title: 'High School Foundation (Placeholder)',
+    category: 'Other',
     timeframe: '2017 - 2021',
     experience: 'Pre-Georgia Tech',
     tags: ['Foundations'],
@@ -99,6 +120,7 @@ export const projectEntries: ProjectEntry[] = [
   {
     slug: 'mmwave-radiation-measurement',
     title: '6-110 GHz Robotic Radiation Measurement Infrastructure',
+    category: 'Undergraduate Research',
     timeframe: 'Fall 2022 - Spring 2023',
     experience: 'mmWave Antennas & Arrays Lab',
     tags: ['RF', 'Robotics', 'Hardware'],
@@ -110,6 +132,7 @@ export const projectEntries: ProjectEntry[] = [
   {
     slug: 'underwater-rf-modulation',
     title: 'Perfect-Pulse Underwater RF Modulation Study',
+    category: 'Undergraduate Research',
     timeframe: 'Spring 2023 - Fall 2023',
     experience: 'Propagation Group',
     tags: ['RF', 'HFSS', 'Research'],
@@ -121,6 +144,7 @@ export const projectEntries: ProjectEntry[] = [
   {
     slug: 'scripps-sonar-navigation',
     title: 'ASV Side-Scan Sonar Navigation Integration',
+    category: 'Undergraduate Research',
     timeframe: 'Summer 2023',
     experience: 'Scripps Institution of Oceanography MPL REU',
     tags: ['Marine Robotics', 'Perception', 'Field Testing'],
@@ -132,6 +156,7 @@ export const projectEntries: ProjectEntry[] = [
   {
     slug: 'spacex-array-calibration',
     title: 'SpaceX Phased-Array Calibration Automation',
+    category: 'Other',
     timeframe: 'Spring 2024 - Fall 2024',
     experience: 'SpaceX RF Engineering Internship',
     tags: ['RF Systems', 'Python', 'Automation'],
@@ -143,6 +168,7 @@ export const projectEntries: ProjectEntry[] = [
   {
     slug: 'ucrt-sim-stack',
     title: 'UCRT Gazebo Simulation and Trajectory Generation',
+    category: 'ASDL',
     timeframe: 'Fall 2024 - Present',
     experience: 'Aerospace Systems Design Lab (ASDL)',
     tags: ['Gazebo', 'Modeling', 'Marine Dynamics'],
@@ -154,6 +180,7 @@ export const projectEntries: ProjectEntry[] = [
   {
     slug: 'ucrt-ros2-deployment',
     title: 'UCRT Distributed ROS 2 + Docker Architecture',
+    category: 'ASDL',
     timeframe: 'Fall 2024 - Present',
     experience: 'Aerospace Systems Design Lab (ASDL)',
     tags: ['ROS 2', 'Docker', 'Distributed Systems'],
@@ -165,6 +192,7 @@ export const projectEntries: ProjectEntry[] = [
   {
     slug: 'ucrt-hitl-validation',
     title: 'UCRT Hardware-in-the-Loop Validation Framework',
+    category: 'ASDL',
     timeframe: 'Fall 2024 - Present',
     experience: 'Aerospace Systems Design Lab (ASDL)',
     tags: ['HITL', 'Validation', 'Embedded'],
@@ -176,6 +204,7 @@ export const projectEntries: ProjectEntry[] = [
   {
     slug: 'stinger-tug-education-platform',
     title: 'Stinger Tug Educational ASV Platform',
+    category: 'Marine Robotics Group',
     timeframe: 'Fall 2024 - Present',
     experience: 'Marine Robotics Group (MRG)',
     tags: ['Marine Robotics', 'Integration', 'Education'],
@@ -187,6 +216,7 @@ export const projectEntries: ProjectEntry[] = [
   {
     slug: 'ae-x355-marine-robotics-course',
     title: 'AE x355 Marine Robotics Course Buildout',
+    category: 'Marine Robotics Group',
     timeframe: 'Fall 2024 - Present',
     experience: 'Marine Robotics Group (MRG)',
     tags: ['Teaching', 'Curriculum', 'Systems Engineering'],

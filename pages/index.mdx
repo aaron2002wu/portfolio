@@ -3,37 +3,11 @@ type: page
 title: About
 date: 2026-03-04
 ---
-import Image from 'next/image'
+
+import AboutHeader from '../components/AboutHeader'
 import Timeline from '../components/timeline'
 
-<div style={{ marginBottom: '2rem' }}>
-  <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '0.75rem' }}>
-    <Image
-      src="/images/profile/profile.jpeg"
-      alt="Aaron Wu"
-      width={120}
-      height={120}
-      sizes="120px"
-      quality={100}
-      unoptimized
-      priority
-      style={{ borderRadius: '9999px', border: '1px solid #e2e8f0', objectFit: 'cover', flexShrink: 0, width: '120px', height: '120px' }}
-    />
-    <div style={{ maxWidth: '42rem' }}>
-      <h1 style={{ margin: 0, lineHeight: 1.2 }}>Aaron E. Wu</h1>
-      <div style={{ marginTop: '0.35rem', fontSize: '1rem', lineHeight: '1.75', color: '#475569' }}>
-        PhD student in Robotics at <strong>Georgia Institute of Technology</strong>, focused on deep
-        reinforcement learning, Sim2Real transfer, and state estimation for autonomous systems.
-      </div>
-    </div>
-  </div>
-
-  <div style={{ marginTop: '0.75rem', fontSize: '0.875rem' }}>
-    <a href="/resume/Aaron_Wu_Resume.pdf" target="_blank" rel="noopener noreferrer">Resume (PDF)</a>
-    {' · '}
-    <a href="/resume/Aaron_Wu_Resume.pdf" download>Download</a>
-  </div>
-</div>
+<AboutHeader />
 
 ## Story Timeline
 
@@ -41,14 +15,12 @@ import Timeline from '../components/timeline'
 
 ## Publications Snapshot
 
-* **IEEE OCEANS 2025:** Co-authored *"A Systems Engineering Approach Enabling Multi-Domain Robotic Field Testing"*.
-* **IEEE OCEANS 2025:** Co-authored *"Implementation of a Reconfigurable Unmanned Surface Vehicle Testbed for Multi-Agent Field Robotics"*.
-* **IEEE ORSS 2023:** Co-authored work on underwater wireless communication and robotic RF measurement systems.
+* **IEEE OCEANS 2025:** Co-authored *"A Systems Engineering Approach Enabling Multi-Domain Robotic Field Testing"*. [IEEE link](https://ieeexplore.ieee.org/document/11245088)
+* **IEEE OCEANS 2025:** Co-authored *"Implementation of a Reconfigurable Unmanned Surface Vehicle Testbed for Multi-Agent Field Robotics"*. [IEEE link](https://ieeexplore.ieee.org/document/11244946)
+* **IEEE OCEANS 2025:** Co-authored *"Stinger Tug: Educational Robots in the Maritime Domain"*. [IEEE link](https://ieeexplore.ieee.org/document/11245086)
+* **IEEE ORSS 2023:** Co-authored *"Perfect Pulses to Improve Acoustic and RF Underwater Wireless Communication"*. [IEEE link](https://ieeexplore.ieee.org/document/10161793)
+* **IEEE ORSS 2023:** Co-authored *"Robotic Radiation Pattern Measurement System for 6–110 GHz"*. [IEEE link](https://ieeexplore.ieee.org/document/10161734)
 
 ---
 
-<div>
-  <div>Projects index: <a href="/projects">View all projects</a></div>
-  <div>LinkedIn: <a href="https://www.linkedin.com/in/aewu/">aewu</a></div>
-  <div>Email: aewu@gatech.edu</div>
-</div>
+Portfolio index: [View all projects](/projects)

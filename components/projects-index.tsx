@@ -1,38 +1,62 @@
 import React from 'react'
 import { projectEntries } from './story-data'
 
+const sectionOrder = ['Undergraduate Research', 'Marine Robotics Group', 'ASDL', 'Other'] as const
+
 export default function ProjectsIndex() {
+  const grouped = projectEntries.reduce<Record<(typeof sectionOrder)[number], typeof projectEntries>>(
+    (acc, project) => {
+      acc[project.category].push(project)
+      return acc
+    },
+    { 'Undergraduate Research': [], 'Marine Robotics Group': [], ASDL: [], Other: [] }
+  )
+
   return (
-    <section className="mt-6 space-y-6">
-      {projectEntries.map((project) => (
-        <article
-          id={project.slug}
-          key={project.slug}
-          className="rounded-lg border border-gray-200 p-5 shadow-sm dark:border-gray-700"
-        >
-          <p className="mb-1 text-xs font-semibold uppercase tracking-wide text-gray-500 dark:text-gray-400">
-            {project.timeframe}
+    <div className="projects-root">
+      <details className="projects-howto">
+        <summary>How to add a project</summary>
+        <div className="projects-howto-body">
+          <p>
+            Add an entry in <code>components/story-data.ts</code> and create{' '}
+            <code>pages/projects/&lt;slug&gt;.mdx</code>.
           </p>
-          <h2 className="mb-1 text-xl font-semibold text-gray-900 dark:text-gray-100">{project.title}</h2>
-          <p className="mb-2 text-xs text-gray-500 dark:text-gray-400">{project.experience}</p>
-          <p className="mb-3 text-sm text-gray-600 dark:text-gray-300">{project.summary}</p>
-          <p className="mb-2 text-sm text-gray-700 dark:text-gray-200">
-            <strong>Role:</strong> {project.role}
-          </p>
-          <p className="mb-3 text-sm text-gray-700 dark:text-gray-200">
-            <strong>Impact:</strong> {project.impact}
-          </p>
-          <p className="mb-3 text-xs text-gray-500 dark:text-gray-400">{project.tags.join(' • ')}</p>
-          <p className="text-sm">
-            <a
-              href={`/projects/${project.slug}`}
-              className="font-medium text-blue-600 underline underline-offset-2 hover:text-blue-500 dark:text-blue-400 dark:hover:text-blue-300"
-            >
-              Open project page
-            </a>
-          </p>
-        </article>
-      ))}
-    </section>
+          <pre>
+{`---
+title: Project Title
+category: Undergraduate Research | Marine Robotics Group | ASDL | Other
+date: 2026-03-04
+---
+# Project Title
+1-2 sentence summary.
+## What I Did
+- bullet
+## Outcome
+1-2 measurable results.`}
+          </pre>
+        </div>
+      </details>
+
+      {sectionOrder.map((groupName) =>
+        grouped[groupName].length === 0 ? null : (
+          <div key={groupName} className="projects-group">
+            <p className="projects-group-label">{groupName}</p>
+            <div className="projects-list">
+              {grouped[groupName].map((project) => (
+                <div key={project.slug} id={project.slug} className="projects-item">
+                  <div className="projects-item-body">
+                    <h3 className="projects-item-title">{project.title}</h3>
+                    <p className="projects-item-summary">{project.summary}</p>
+                  </div>
+                  <a href={`/projects/${project.slug}`} className="projects-item-link">
+                    Open →
+                  </a>
+                </div>
+              ))}
+            </div>
+          </div>
+        )
+      )}
+    </div>
   )
 }
