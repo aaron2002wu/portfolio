@@ -16,13 +16,15 @@ export default function Timeline() {
                   <time className="timeline-period">{item.period}</time>
                   {item.tag ? <span className="timeline-tag">{item.tag}</span> : null}
                 </div>
-                {item.projectPath ? (
-                  <a className="timeline-title timeline-title-link" href={item.projectPath}>
-                    {item.title}
-                  </a>
-                ) : (
-                  <div className="timeline-title">{item.title}</div>
-                )}
+                <div className="timeline-title">
+                  {item.projectPath ? (
+                    <a href={item.projectPath} className="timeline-title-link">
+                      {item.title}
+                    </a>
+                  ) : (
+                    item.title
+                  )}
+                </div>
                 <p className="timeline-description">{item.summary}</p>
               </div>
             </li>

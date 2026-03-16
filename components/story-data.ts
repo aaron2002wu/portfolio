@@ -18,6 +18,7 @@ export type ProjectEntry = {
   role: string
   impact: string
   summary: string
+  paperUrls?: string[]
 }
 
 export type ProjectCategory =
@@ -28,76 +29,83 @@ export type ProjectCategory =
 
 export const timelineMilestones: TimelineMilestone[] = [
   {
-    id: 'mrg-join',
+    id: 'bs-start',
     period: 'Fall 2021',
-    title: 'Joined Marine Robotics Group',
+    title: 'Started B.S. in Electrical Engineering',
     summary:
-      'Joined MRG in freshman year and started building the marine systems context that shaped later research choices.',
-    tag: 'Marine Robotics Group',
-    projectPath: '/projects/stinger-tug-education-platform',
+      'Began undergraduate studies in electrical engineering at Georgia Tech.',
   },
   {
     id: 'mmwave-radiation-measurement',
     period: 'Fall 2022 - Spring 2023',
-    title: 'mmWave Lab Infrastructure',
+    title: '6-110 GHz Robotic Radiation Measurement Infrastructure',
     summary:
       'Designed durable hardware infrastructure for robotic radiation-pattern measurement workflows.',
     tag: 'Undergraduate Research',
     projectPath: '/projects/mmwave-radiation-measurement',
   },
   {
-    id: 'scripps-sonar-navigation',
-    period: 'Summer 2023',
-    title: 'ASV Sonar Navigation',
-    summary:
-      'Integrated side-scan sonar navigation and produced field datasets for localization validation.',
-    tag: 'Undergraduate Research',
-    projectPath: '/projects/scripps-sonar-navigation',
-  },
-  {
     id: 'underwater-rf-modulation',
     period: 'Spring 2023 - Fall 2023',
-    title: 'Underwater RF Modulation Research',
+    title: 'Perfect-Pulse Underwater RF Modulation Study',
     summary:
       'Modeled underwater antenna transfer functions and proposed a more power-efficient communication scheme.',
     tag: 'Undergraduate Research',
     projectPath: '/projects/underwater-rf-modulation',
   },
   {
+    id: 'scripps-sonar-navigation',
+    period: 'Summer 2023',
+    title: 'ASV Side-Scan Sonar Navigation Integration',
+    summary:
+      'Integrated side-scan sonar navigation and produced field datasets for localization validation.',
+    tag: 'Undergraduate Research',
+    projectPath: '/projects/scripps-sonar-navigation',
+  },
+  {
     id: 'mrg-president',
     period: 'Fall 2023 - Present',
-    title: 'Became President, Marine Robotics Group',
+    title: 'MRG Leadership & Advising',
     summary:
       'Stepped into MRG leadership in 2023 and scaled project onboarding, systems integration, and field-test execution.',
     tag: 'Marine Robotics Group',
-    projectPath: '/projects/ae-x355-marine-robotics-course',
+    projectPath: '/projects/mrg-leadership-advising',
   },
   {
     id: 'spacex-array-calibration',
     period: 'Spring 2024 - Fall 2024',
-    title: 'Phased-Array Calibration Automation',
+    title: 'SpaceX Phased-Array Calibration Automation',
     summary:
       'Built automation that reduced calibration runtime from hours to seconds for production-scale workflows.',
     projectPath: '/projects/spacex-array-calibration',
   },
   {
     id: 'bs-graduation',
-    period: 'May 2024',
+    period: 'Spring 2024',
     title: 'Graduated B.S. in Electrical Engineering',
     summary:
       'Completed the B.S. at Georgia Tech and transitioned into full-time graduate robotics research.',
   },
   {
-    id: 'phd-transition',
+    id: 'ms-transition',
     period: 'Fall 2024 - Present',
-    title: 'Started PhD in Robotics',
+    title: 'Started MS in Robotics',
     summary:
       'Transitioned from undergraduate research and industry execution into graduate systems research.',
   },
   {
+    id: 'mrg-join',
+    period: 'Fall 2024 - Present',
+    title: 'Stinger Tug Educational ASV Platform',
+    summary:
+      'Joined MRG in freshman year and started building the marine systems context that shaped later research choices.',
+    tag: 'Marine Robotics Group',
+    projectPath: '/projects/stinger-tug-education-platform',
+  },
+  {
     id: 'ucrt-ros2-deployment',
     period: 'Fall 2024 - Present',
-    title: 'UCRT Marine Autonomy Stack (Sim + ROS 2 + HITL)',
+    title: 'UCRT Distributed ROS 2 + Docker Architecture',
     summary:
       'Built containerized navigation, sensor-fusion, and HITL validation workflows for multi-domain marine testbed development.',
     projectPath: '/projects/ucrt-ros2-deployment',
@@ -106,16 +114,28 @@ export const timelineMilestones: TimelineMilestone[] = [
 
 export const projectEntries: ProjectEntry[] = [
   {
-    slug: 'high-school-foundation',
-    title: 'High School Foundation (Placeholder)',
+    slug: 'spacex-array-calibration',
+    title: 'SpaceX Phased-Array Calibration Automation',
     category: 'Other',
-    timeframe: '2017 - 2021',
-    experience: 'Pre-Georgia Tech',
-    tags: ['Foundations'],
-    role: 'Student Builder',
-    impact: '[Placeholder] Add one measurable outcome from high-school engineering work.',
+    timeframe: 'Spring 2024 - Fall 2024',
+    experience: 'SpaceX RF Engineering Internship',
+    tags: ['RF Systems', 'Python', 'Automation'],
+    role: 'RF Engineering Intern',
+    impact: 'Cut calibration runtime from 3 hours to 30 seconds for production workflows.',
     summary:
-      'Placeholder slot to connect early projects to your later robotics and systems engineering trajectory.'
+      'Automated antenna calibration/validation pipelines under strict hardware delivery deadlines.'
+  },
+  {
+    slug: 'high-school-foundation',
+    title: 'High School Foundation',
+    category: 'Other',
+    timeframe: '2017 – 2021',
+    experience: 'Pre-Georgia Tech',
+    tags: ['Science Olympiad', 'Leadership', 'SNHS'],
+    role: 'Club President',
+    impact: 'Led Science Olympiad and SNHS through COVID with no playbook and kept both organizations running.',
+    summary:
+      'Served as president of Science Olympiad and Science National Honor Society during the pandemic.',
   },
   {
     slug: 'mmwave-radiation-measurement',
@@ -127,7 +147,8 @@ export const projectEntries: ProjectEntry[] = [
     role: 'Undergraduate Researcher',
     impact: 'Custom antenna mounts remain in active lab use as core measurement infrastructure.',
     summary:
-      'Designed and fabricated fixture hardware for repeatable robotic radiation-pattern measurement.'
+      'Designed and fabricated fixture hardware for repeatable robotic radiation-pattern measurement.',
+    paperUrls: ['https://ieeexplore.ieee.org/document/10161734']
   },
   {
     slug: 'underwater-rf-modulation',
@@ -139,7 +160,8 @@ export const projectEntries: ProjectEntry[] = [
     role: 'Undergraduate Researcher',
     impact: "Won President's Undergraduate Research Award and best poster at IEEE DTPI 2023.",
     summary:
-      'Modeled underwater transfer functions and proposed a novel modulation strategy for efficient propagation.'
+      'Modeled underwater transfer functions and proposed a novel modulation strategy for efficient propagation.',
+    paperUrls: ['https://ieeexplore.ieee.org/document/10161793']
   },
   {
     slug: 'scripps-sonar-navigation',
@@ -154,30 +176,6 @@ export const projectEntries: ProjectEntry[] = [
       'Integrated side-scan sonar into an ASV stack and validated data quality during ocean deployments.'
   },
   {
-    slug: 'spacex-array-calibration',
-    title: 'SpaceX Phased-Array Calibration Automation',
-    category: 'Other',
-    timeframe: 'Spring 2024 - Fall 2024',
-    experience: 'SpaceX RF Engineering Internship',
-    tags: ['RF Systems', 'Python', 'Automation'],
-    role: 'RF Engineering Intern',
-    impact: 'Cut calibration runtime from 3 hours to 30 seconds for production workflows.',
-    summary:
-      'Automated antenna calibration/validation pipelines under strict hardware delivery deadlines.'
-  },
-  {
-    slug: 'ucrt-sim-stack',
-    title: 'UCRT Gazebo Simulation and Trajectory Generation',
-    category: 'ASDL',
-    timeframe: 'Fall 2024 - Present',
-    experience: 'Aerospace Systems Design Lab (ASDL)',
-    tags: ['Gazebo', 'Modeling', 'Marine Dynamics'],
-    role: 'PhD Researcher',
-    impact: 'Generated 100k+ trajectories to support residual dynamics model training.',
-    summary:
-      'Built a scalable simulator workflow to produce trajectory data for marine autonomy research.'
-  },
-  {
     slug: 'ucrt-ros2-deployment',
     title: 'UCRT Distributed ROS 2 + Docker Architecture',
     category: 'ASDL',
@@ -187,42 +185,71 @@ export const projectEntries: ProjectEntry[] = [
     role: 'PhD Researcher',
     impact: 'Standardized deployment across heterogeneous robotic platforms through containerized services.',
     summary:
-      'Designed containerized navigation/perception stacks and repeatable environment provisioning for testbed teams.'
-  },
-  {
-    slug: 'ucrt-hitl-validation',
-    title: 'UCRT Hardware-in-the-Loop Validation Framework',
-    category: 'ASDL',
-    timeframe: 'Fall 2024 - Present',
-    experience: 'Aerospace Systems Design Lab (ASDL)',
-    tags: ['HITL', 'Validation', 'Embedded'],
-    role: 'PhD Researcher',
-    impact: 'Enabled rapid pre-water validation of localization and state-estimation updates.',
-    summary:
-      'Implemented repeatable HITL testing workflows for autonomy stack regression checks.'
+      'Designed containerized navigation/perception stacks and repeatable environment provisioning for testbed teams.',
+    paperUrls: [
+      'https://ieeexplore.ieee.org/document/11245088',
+      'https://ieeexplore.ieee.org/document/11244946'
+    ]
   },
   {
     slug: 'stinger-tug-education-platform',
     title: 'Stinger Tug Educational ASV Platform',
-    category: 'Marine Robotics Group',
+    category: 'ASDL',
     timeframe: 'Fall 2024 - Present',
     experience: 'Marine Robotics Group (MRG)',
     tags: ['Marine Robotics', 'Integration', 'Education'],
-    role: 'MRG President / Systems Lead',
+    role: 'MRG President / Electrical Lead / Systems Lead',
     impact: 'Created a reliable platform for onboarding and field validation in student-led robotics teams.',
     summary:
-      'Led integration and field testing of the Stinger Tug autonomous surface vehicle platform.'
+      'Led integration and field testing of the Stinger Tug autonomous surface vehicle platform.',
+    paperUrls: ['https://ieeexplore.ieee.org/document/11245086']
   },
   {
-    slug: 'ae-x355-marine-robotics-course',
-    title: 'AE x355 Marine Robotics Course Buildout',
+    slug: 'mrg-leadership-advising',
+    title: 'MRG Leadership & Advising',
     category: 'Marine Robotics Group',
-    timeframe: 'Fall 2024 - Present',
+    timeframe: '2023 - Present',
     experience: 'Marine Robotics Group (MRG)',
-    tags: ['Teaching', 'Curriculum', 'Systems Engineering'],
-    role: 'Course Founder / Instructor',
-    impact: 'Established a hands-on pipeline for onboarding new marine robotics contributors.',
+    tags: ['Leadership', 'Advising', 'Systems Integration'],
+    role: 'MRG President / Electrical Lead',
+    impact: 'Scaled onboarding, advising, and integration support across student-led marine robotics teams.',
     summary:
-      'Designed and taught a practical course that takes members from fundamentals to field test readiness.'
+      'Led technical advising and integration support for MRG teams to improve readiness and field-test execution.'
+  },
+  {
+    slug: 'roboboat-platform',
+    title: 'RoboBoat Platform',
+    category: 'Marine Robotics Group',
+    timeframe: '2023 - Present',
+    experience: 'Marine Robotics Group (MRG)',
+    tags: ['Marine Robotics', 'Competition', 'Systems Integration'],
+    role: 'MRG President / Electrical Lead / Team Lead / Systems Integrator',
+    impact: 'Delivered a reliable platform for field testing autonomy and sensor integration.',
+    summary:
+      'Built and maintained the RoboBoat competition platform to support iterative autonomy development.'
+  },
+  {
+    slug: 'robosub-platform',
+    title: 'RoboSub Platform',
+    category: 'Marine Robotics Group',
+    timeframe: '2023 - Present',
+    experience: 'Marine Robotics Group (MRG)',
+    tags: ['Marine Robotics', 'Competition', 'Systems Integration'],
+    role: 'MRG President / Electrical Lead / Team Lead / Systems Integrator',
+    impact: 'Improved underwater system readiness through repeatable integration and test workflows.',
+    summary:
+      'Supported RoboSub platform integration and validation for competition readiness.'
+  },
+  {
+    slug: 'robotx-platform',
+    title: 'RobotX Platform',
+    category: 'Marine Robotics Group',
+    timeframe: '2023 - Present',
+    experience: 'Marine Robotics Group (MRG)',
+    tags: ['Marine Robotics', 'Competition', 'Systems Integration'],
+    role: 'MRG President / Electrical Lead / Team Lead / Systems Integrator',
+    impact: 'Expanded surface-vehicle testing coverage for multi-mission autonomy development.',
+    summary:
+      'Maintained the RobotX platform to enable field testing across navigation and perception stacks.'
   }
 ]

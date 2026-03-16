@@ -42,6 +42,20 @@ export default function AboutHeader() {
         </a>
         {' · '}
         <a href="mailto:aewu@gatech.edu">aewu@gatech.edu</a>
+        {' · '}
+        <a href="https://github.com/aaron2002wu" target="_blank" rel="noopener noreferrer">
+          GitHub
+        </a>
+        {' · '}
+        <a href="https://hub.docker.com/repositories/aaron2002wu" target="_blank" rel="noopener noreferrer">
+          Docker Hub
+        </a>
+      </div>
+      <div style={{ marginTop: '0.4rem', fontSize: '0.8rem', color: '#64748b' }}>
+        Enterprise GitHub (Georgia Tech):{' '}
+        <a href="https://github.gatech.edu/awu335" target="_blank" rel="noopener noreferrer">
+          github.gatech.edu/awu335
+        </a>
       </div>
     </div>
   )
