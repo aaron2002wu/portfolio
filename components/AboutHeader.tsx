@@ -33,7 +33,7 @@ export default function AboutHeader() {
       </div>
 
       <div style={{ marginTop: '0.75rem', fontSize: '0.875rem' }}>
-        <a href="/resume/Aaron_Wu_Resume.pdf" target="_blank" rel="noopener noreferrer">
+        <a href="/resume/Aaron_Wu_MS.pdf" target="_blank" rel="noopener noreferrer">
           Resume (PDF)
         </a>
         {' · '}
