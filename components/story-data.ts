@@ -135,7 +135,7 @@ export const projectEntries: ProjectEntry[] = [
     role: 'Club President',
     impact: 'Led Science Olympiad and SNHS through COVID with no playbook and kept both organizations running.',
     summary:
-      'Served as president of Science Olympiad and Science National Honor Society during the pandemic.',
+      'Valedictorian and served as president of Science Olympiad and Science National Honor Society.',
   },
   {
     slug: 'mmwave-radiation-measurement',

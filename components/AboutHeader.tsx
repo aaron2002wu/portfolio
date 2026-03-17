@@ -3,7 +3,7 @@ import Image from 'next/image'
 export default function AboutHeader() {
   return (
     <div style={{ marginBottom: '2rem' }}>
-      <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '0.75rem' }}>
+      <div className="about-header-row">
         <Image
           src="/images/profile/profile.jpeg"
           alt="Aaron Wu"
@@ -22,7 +22,7 @@ export default function AboutHeader() {
             height: '120px'
           }}
         />
-        <div style={{ maxWidth: '42rem' }}>
+        <div className="about-header-text">
           <h1 style={{ margin: 0, lineHeight: 1.2 }}>Aaron E. Wu</h1>
           <div style={{ marginTop: '0.35rem', fontSize: '1rem', lineHeight: '1.75', color: '#475569' }}>
             M.S. student in Robotics at <strong>Georgia Institute of Technology</strong>, focused on

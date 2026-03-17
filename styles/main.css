@@ -41,6 +41,34 @@ details summary { cursor: pointer; }
 img.next-image  { margin: 0; }
 .prose a        { color: #0074de; }
 
+/* ─── About Header ─────────────────────────────────────────────────── */
+
+.about-header-row {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.about-header-text {
+  max-width: 42rem;
+  flex: 1 1 16rem;
+  min-width: 16rem;
+}
+
+@media (max-width: 640px) {
+  .about-header-row {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .about-header-text {
+    max-width: 100%;
+    min-width: 0;
+  }
+}
+
 
 /* ─── Top nav tabs (Nextra blog theme) ──────────────────────────────── */
 
