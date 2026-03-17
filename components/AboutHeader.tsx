@@ -25,9 +25,9 @@ export default function AboutHeader() {
         <div className="about-header-text">
           <h1 style={{ margin: 0, lineHeight: 1.2 }}>Aaron E. Wu</h1>
           <div style={{ marginTop: '0.35rem', fontSize: '1rem', lineHeight: '1.75', color: '#475569' }}>
-            M.S. student in Robotics at <strong>Georgia Institute of Technology</strong>, focused on
-            deep reinforcement learning, Sim2Real transfer, and state estimation for autonomous
-            systems.
+            Master of Science student in Robotics at <strong>Georgia Institute of Technology</strong>,
+            with interests in deep reinforcement learning, sim-to-real transfer, and state
+            estimation for autonomous systems.
           </div>
         </div>
       </div>
