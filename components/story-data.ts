@@ -33,7 +33,7 @@ export const timelineMilestones: TimelineMilestone[] = [
     period: 'Fall 2021 - Spring 2024',
     title: 'B.S. in Electrical Engineering',
     summary:
-      'Completed the Georgia Tech degree in three years while pursuing undergraduate research, a semester in France, a summer internship at UC San Diego Scripps, and award-winning conference work in RF and robotics.',
+      'Completed the Georgia Tech degree in three years while pursuing undergraduate research, including terahertz imaging on paper with Dr. David Citrin at Georgia Tech-CNRS IRL 2958 in France, a summer internship at UC San Diego Scripps, and award-winning conference work in RF and robotics.',
   },
   {
     id: 'mmwave-radiation-measurement',
